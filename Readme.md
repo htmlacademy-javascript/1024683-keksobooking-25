@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [ALEKSANDR Р](https://up.htmlacademy.ru/javascript/25/user/1024683).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Байдаров](https://htmlacademy.ru/profile/4er).
 
 ---
 
