@@ -1,4 +1,4 @@
-const decimalOfCoordinates = 5;
+const DECIMAL_OF_COORDINATES = 5;
 
 //Функция, возвращающая случайное целое число из переданного диапазона включительно.
 const getRandomIntInclusive = (min, max) => {
@@ -43,14 +43,11 @@ const getRandomElementArr = (arr) => arr[getRandomIntInclusive(0, arr.length - 1
 //Функция, возвращающая массив случайной длины из значений родительского массива.
 const getArrRandomLength = (arr) => arr.slice(0, getRandomIntInclusive(0, arr.length - 1));
 
-//Функция, проверяющая адрес аватара на соответствие ТЗ и возвращающая откоректированное значение
-const getСorrectAddress = () => {
-  let address = getRandomIntInclusive(1, 10);
-  if (address < 10 ) { address = `0${  address}`;}
+//Функция, проверяющая адрес аватара на соответствие ТЗ и возвращающая откорректированное значение
+const getСorrectAddress = (address) => {
+  if (address < 10 ) { address = `0${address}`;}
   return address;
 };
-
-getСorrectAddress();
 
 const OFFER = {
   TITLES: ['Квартира', 'Студия', 'Общежитие', 'Дом'],
@@ -86,17 +83,17 @@ const LOCATION = {
   },
 };
 
-const createAdvert = () => {
-  const latitude = getRandomNumber(LOCATION.X.MIN, LOCATION.X.MAX, decimalOfCoordinates);
-  const longitude = getRandomNumber(LOCATION.Y.MIN, LOCATION.Y.MAX, decimalOfCoordinates);
+const createAdvert = (avatarsNumber) => {
+  const lat = getRandomNumber(LOCATION.X.MIN, LOCATION.X.MAX, DECIMAL_OF_COORDINATES);
+  const lng = getRandomNumber(LOCATION.Y.MIN, LOCATION.Y.MAX, DECIMAL_OF_COORDINATES);
 
   return {
     author: {
-      avatar: `img/avatars/user${getRandomIntInclusive(1, 10)}.png`,
+      avatar: `img/avatars/user${getСorrectAddress(avatarsNumber)}.png`,
     },
     offer: {
       title: getRandomElementArr(OFFER.TITLES),
-      address: [latitude, longitude],
+      address: `${lat}, ${lng}`,
       price: getRandomIntInclusive(OFFER.PRICES.MIN, OFFER.PRICES.MAX),
       type: getRandomElementArr(OFFER.TYPES),
       rooms: getRandomIntInclusive(OFFER.ROOMS.MIN, OFFER.ROOMS.MAX),
@@ -107,14 +104,14 @@ const createAdvert = () => {
       description: getRandomElementArr(OFFER.DESCRIPTIONS),
       photos: getArrRandomLength(OFFER.PHOTOS),
     },
-    location: [latitude, longitude]
+    location: {lat, lng},
   };
 };
 
 const createAdverts = (advertsQuantity) => {
   const adverts = [];
   for (let i = 0; i <= advertsQuantity; i++) {
-    adverts.push(createAdvert());
+    adverts.push(createAdvert(i));
   }
   return adverts;
 };
