@@ -1,3 +1,5 @@
+const decimalOfCoordinates = 5;
+
 //Функция, возвращающая случайное целое число из переданного диапазона включительно.
 const getRandomIntInclusive = (min, max) => {
   if (min < 0 || max < 0) {
@@ -41,11 +43,20 @@ const getRandomElementArr = (arr) => arr[getRandomIntInclusive(0, arr.length - 1
 //Функция, возвращающая массив случайной длины из значений родительского массива.
 const getArrRandomLength = (arr) => arr.slice(0, getRandomIntInclusive(0, arr.length - 1));
 
+//Функция, проверяющая адрес аватара на соответствие ТЗ и возвращающая откоректированное значение
+const getСorrectAddress = () => {
+  let address = getRandomIntInclusive(1, 10);
+  if (address < 10 ) { address = `0${  address}`;}
+  return address;
+};
+
+getСorrectAddress();
+
 const OFFER = {
-  TITLES: ['Квартира'],
+  TITLES: ['Квартира', 'Студия', 'Общежитие', 'Дом'],
   PRICES: {
     MIN: 0,
-    MAX: 10,
+    MAX: 100000,
   },
   TYPES: ['palace', 'flat', 'house', 'bungalow', 'hotel'],
   ROOMS: {
@@ -76,8 +87,8 @@ const LOCATION = {
 };
 
 const createAdvert = () => {
-  const x = getRandomNumber(LOCATION.X.MIN, LOCATION.X.MAX, 5);
-  const y = getRandomNumber(LOCATION.Y.MIN, LOCATION.Y.MAX, 5);
+  const latitude = getRandomNumber(LOCATION.X.MIN, LOCATION.X.MAX, decimalOfCoordinates);
+  const longitude = getRandomNumber(LOCATION.Y.MIN, LOCATION.Y.MAX, decimalOfCoordinates);
 
   return {
     author: {
@@ -85,7 +96,7 @@ const createAdvert = () => {
     },
     offer: {
       title: getRandomElementArr(OFFER.TITLES),
-      address: [x, y],
+      address: [latitude, longitude],
       price: getRandomIntInclusive(OFFER.PRICES.MIN, OFFER.PRICES.MAX),
       type: getRandomElementArr(OFFER.TYPES),
       rooms: getRandomIntInclusive(OFFER.ROOMS.MIN, OFFER.ROOMS.MAX),
@@ -96,16 +107,16 @@ const createAdvert = () => {
       description: getRandomElementArr(OFFER.DESCRIPTIONS),
       photos: getArrRandomLength(OFFER.PHOTOS),
     },
-    location: [x, y]
+    location: [latitude, longitude]
   };
 };
 
-const createAdverts = () => {
-  const arr = [];
-  for (let i = 0; i <= 10; i++) {
-    arr.push(createAdvert());
+const createAdverts = (advertsQuantity) => {
+  const adverts = [];
+  for (let i = 0; i <= advertsQuantity; i++) {
+    adverts.push(createAdvert());
   }
-  return arr;
+  return adverts;
 };
 
-createAdverts();
+createAdverts(10);
