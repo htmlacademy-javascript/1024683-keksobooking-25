@@ -1,3 +1,2 @@
-import {createAdverts,ADVERTS_QUANTITY} from './data.js';
-
-createAdverts(ADVERTS_QUANTITY);
+import './generation.js';
+//import {createAdverts, ADVERTS_QUANTITY} from './data.js';
