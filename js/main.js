@@ -3,7 +3,7 @@ import {
   createAdverts,
   ADVERTS_QUANTITY} from './data.js';
 import {
-  oneCard} from './generation.js';
+  renderCard} from './generation.js';
 
 const similarCards = createAdverts(ADVERTS_QUANTITY);
-oneCard(similarCards[0]);
+renderCard(similarCards[0]);
