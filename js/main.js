@@ -1,4 +1,5 @@
 import './generation.js';
+import './disabled.js';
 import {
   createAdverts,
   ADVERTS_QUANTITY} from './data.js';
