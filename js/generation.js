@@ -1,18 +1,10 @@
-import {createAdverts, ADVERTS_QUANTITY} from './data.js';
-
 // Находим фрагмент с содержимым темплейта
 const similarCardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-//Находим временное расположение объявления
-const similarListElement = document.querySelector('.map__canvas');
-
-//Клонируем шаблон и отрисовываем его в временном расположении
+//Клонируем шаблон
 const cardElement = similarCardTemplate.cloneNode(true);
-similarListElement.appendChild(cardElement);
-
-const similarCards = createAdverts(ADVERTS_QUANTITY);
 const typeProperty ={
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -20,7 +12,7 @@ const typeProperty ={
   palace: 'Дворец',
   hotel: 'Отель'};
 
-const createPhotos = (photosList) => {
+const renderPhotos = (photosList) => {
   const photosContainer = document.createDocumentFragment();
   photosList.forEach((photo) => {
     const photoElement = document.createElement('img');
@@ -34,7 +26,7 @@ const createPhotos = (photosList) => {
   return photosContainer;
 };
 
-const createFeatures = (featuresList) => {
+const renderFeatures = (featuresList) => {
   const featuresContainer = document.createDocumentFragment();
   featuresList.forEach((feature) => {
     const featureElement = document.createElement('li');
@@ -56,13 +48,18 @@ const oneCard = (card) => {
   cardElement.querySelector('.popup__description').textContent = card.offer.description;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
   //
-  const photos = createPhotos(card.offer.photos);
+  const photos = renderPhotos(card.offer.photos);
   cardElement.querySelector('.popup__photos').innerHTML = '';
   cardElement.querySelector('.popup__photos').appendChild(photos);
   //
-  const features = createFeatures(card.offer.features);
+  const features = renderFeatures(card.offer.features);
   cardElement.querySelector('.popup__features').innerHTML = '';
   cardElement.querySelector('.popup__features').appendChild(features);
 };
-oneCard(similarCards[0]);
 
+//Находим временное расположение объявления и отрисовываем шаблон там
+const similarListElement = document.querySelector('.map__canvas');
+similarListElement.appendChild(cardElement);
+
+export {
+  oneCard};
