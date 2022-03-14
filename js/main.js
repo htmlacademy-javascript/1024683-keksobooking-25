@@ -1,3 +1,4 @@
+import './form.js';
 import './generation.js';
 import './disabled.js';
 import {
