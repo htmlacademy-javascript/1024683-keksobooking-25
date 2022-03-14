@@ -23,7 +23,10 @@ function validateAmount () {
 
 
 function getAmountErrorMessage () {
-  return ` ${'Бронь невозможна'}  `;
+  let message = 'Количество гостей не может превышать количество комнат';
+  if (roomNumberSelect.value === '100'){
+    message = '100 комнат не для гостей';}
+  return message;
 }
 
 pristine.addValidator(
@@ -40,5 +43,5 @@ pristine.addValidator(
 
 form.addEventListener('submit', (evt) => {
   const value = pristine.validate();
-  if(value === false){evt.preventDefault();}
+  if(!value){evt.preventDefault();}
 });
