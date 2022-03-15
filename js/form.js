@@ -45,3 +45,55 @@ form.addEventListener('submit', (evt) => {
   const value = pristine.validate();
   if(!value){evt.preventDefault();}
 });
+
+const selectTimeIn = document.querySelector('[name="timein"]');
+const selectTimeOut = document.querySelector('[name="timeout"]');
+
+//при изменении времени выезда, меняем время въезда
+const setTimeIn = (evt) => {
+  selectTimeIn.value = evt.target.value;
+};
+//при изменении времени въезда, меняем время выезда
+const setTimeOut = (evt) => {
+  selectTimeOut.value = evt.target.value;
+};
+
+//Вешаем обработчик события change на изменение времени въезда и выезда
+selectTimeOut.addEventListener('change', setTimeIn);
+selectTimeIn.addEventListener('change', setTimeOut);
+
+
+const selectTypeHousing = document.querySelector('[name="type"]');
+const inputPrice = document.querySelector('[name="price"]');
+
+//Создаем объект cоответствия типа размещения к минимальной стоимости
+const propertyMinPrice ={
+  flat: '1000',
+  bungalow: '0',
+  house: '5000',
+  palace: '10000',
+  hotel: '3000'
+};
+
+//при изменении типа жилья, меняем placeholder и min в инпуте стоимости жилья
+const setPrice = (evt) => {
+  inputPrice.placeholder = propertyMinPrice[evt.target.value];
+  inputPrice.min = propertyMinPrice[evt.target.value];
+};
+
+//Вешаем обработчик события change на изменение типа жилья
+selectTypeHousing.addEventListener('change', setPrice);
+
+
+// selectTypeHousing.addEventListener('change', pristine.validate(inputPrice));
+
+// const validatePrice = () => {
+//   Number(propertyMinPrice[selectTypeHousing.value]) >= здесь должно быть значение из инпута, не понимаю как его записать
+// };
+
+// Валидируем инпут стоимости жилья
+// pristine.addValidator(
+//   inputPrice,
+//   validatePrice,
+//   `Minimum value for this field is ${propertyMinPrice[selectTypeHousing.value]
+// );
