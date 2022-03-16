@@ -68,11 +68,11 @@ const inputPrice = document.querySelector('[name="price"]');
 
 //Создаем объект cоответствия типа размещения к минимальной стоимости
 const propertyMinPrice ={
-  flat: '1000',
-  bungalow: '0',
-  house: '5000',
-  palace: '10000',
-  hotel: '3000'
+  flat: 1000,
+  bungalow: 0,
+  house: 5000,
+  palace: 10000,
+  hotel: 3000
 };
 
 //при изменении типа жилья, меняем placeholder и min в инпуте стоимости жилья
@@ -84,16 +84,14 @@ const setPrice = (evt) => {
 //Вешаем обработчик события change на изменение типа жилья
 selectTypeHousing.addEventListener('change', setPrice);
 
+//Cравниваем мин значение стоимости жилья и введеную стиомость
+const validatePrice = (value) => propertyMinPrice[selectTypeHousing.value] <= Number(value);
+//Выводим сообщение об ошибке
+const getPriceErrorMessage = ()=>`Minimum value for this field is ${propertyMinPrice[selectTypeHousing.value]}`;
 
-// selectTypeHousing.addEventListener('change', pristine.validate(inputPrice));
-
-// const validatePrice = () => {
-//   Number(propertyMinPrice[selectTypeHousing.value]) >= здесь должно быть значение из инпута, не понимаю как его записать
-// };
-
-// Валидируем инпут стоимости жилья
-// pristine.addValidator(
-//   inputPrice,
-//   validatePrice,
-//   `Minimum value for this field is ${propertyMinPrice[selectTypeHousing.value]
-// );
+//Валидируем инпут стоимости жилья
+pristine.addValidator(
+  inputPrice,
+  validatePrice,
+  getPriceErrorMessage
+);
