@@ -74,11 +74,10 @@ const propertyMinPrice ={
   palace: 10000,
   hotel: 3000
 };
-
 //при изменении типа жилья, меняем placeholder и min в инпуте стоимости жилья
 const setPrice = (evt) => {
   inputPrice.placeholder = propertyMinPrice[evt.target.value];
-  inputPrice.min = propertyMinPrice[evt.target.value];
+  //inputPrice.min = propertyMinPrice[evt.target.value];
 };
 
 //Вешаем обработчик события change на изменение типа жилья
@@ -93,5 +92,7 @@ const getPriceErrorMessage = ()=>`Minimum value for this field is ${propertyMinP
 pristine.addValidator(
   inputPrice,
   validatePrice,
-  getPriceErrorMessage
+  getPriceErrorMessage,
+  1,
+  true
 );
