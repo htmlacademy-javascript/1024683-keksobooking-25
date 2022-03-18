@@ -1,3 +1,5 @@
+import {typeProperty} from './generation.js';
+
 const form = document.querySelector('.ad-form');
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element', // Элемент, на который будут добавляться классы
@@ -45,3 +47,46 @@ form.addEventListener('submit', (evt) => {
   const value = pristine.validate();
   if(!value){evt.preventDefault();}
 });
+
+const selectTimeIn = document.querySelector('[name="timein"]');
+const selectTimeOut = document.querySelector('[name="timeout"]');
+
+//при изменении времени выезда, меняем время въезда
+const setTimeIn = (evt) => {
+  selectTimeIn.value = evt.target.value;
+};
+//при изменении времени въезда, меняем время выезда
+const setTimeOut = (evt) => {
+  selectTimeOut.value = evt.target.value;
+};
+
+//Вешаем обработчик события change на изменение времени въезда и выезда
+selectTimeOut.addEventListener('change', setTimeIn);
+selectTimeIn.addEventListener('change', setTimeOut);
+
+
+const selectTypeHousing = document.querySelector('[name="type"]');
+const inputPrice = document.querySelector('[name="price"]');
+
+//при изменении типа жилья, меняем placeholder и min в инпуте стоимости жилья
+const setPrice = (evt) => {
+  inputPrice.placeholder = typeProperty[evt.target.value].price;
+  //inputPrice.min = typeProperty[evt.target.value].price;
+};
+
+//Вешаем обработчик события change на изменение типа жилья
+selectTypeHousing.addEventListener('change', setPrice);
+
+//Cравниваем мин значение стоимости жилья и введеную стиомость
+const validatePrice = (value) => typeProperty[selectTypeHousing.value].price <= Number(value);
+//Выводим сообщение об ошибке
+const getPriceErrorMessage = ()=>`Минимальная цена для жилья: ${typeProperty[selectTypeHousing.value].price} руб`;
+
+//Валидируем инпут стоимости жилья
+pristine.addValidator(
+  inputPrice,
+  validatePrice,
+  getPriceErrorMessage,
+  1,
+  true
+);
