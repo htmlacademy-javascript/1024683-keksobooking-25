@@ -5,6 +5,7 @@ import {
   getArrRandomLength,
   getСorrectAddress} from './util.js';
 
+//Записываем произвольные данные
 const DECIMAL_OF_COORDINATES = 5;
 const ADVERTS_QUANTITY = 10;
 const OFFER = {

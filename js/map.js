@@ -1,5 +1,14 @@
 import { includedForm } from './disabled.js';
 
+import {
+  createAdverts,
+  ADVERTS_QUANTITY} from './data.js';
+import {
+  renderCard} from './generation.js';
+
+//Массив с обьявлениями заводим в переменную
+const similarCards = createAdverts(ADVERTS_QUANTITY);
+
 const address = document.querySelector('#address');
 const LAT = 35.68950;
 const LNG = 139.69171;
@@ -24,7 +33,7 @@ L.tileLayer(
   },
 ).addTo(map);
 
-// Cоздвем иконку маркера
+// Cоздвем иконку главного маркера
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
@@ -42,10 +51,51 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
-//Добавляем маркер на карту
+//Добавляем главный маркер на карту
 mainPinMarker.addTo(map);
 
-// Узнаем координаты метки
+// Узнаем координаты главного маркера
 mainPinMarker.on('moveend', (evt) => {
   address.value = evt.target.getLatLng();
+});
+
+// Cоздвем иконку простого маркера
+const icon = L.icon({
+  iconUrl: './img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+// //Добавляем простые маркеры на карту
+// similarCards.forEach((similarCard) => {
+//   const marker = L.marker(
+//     {
+//       lat: similarCard.location.lat,
+//       lng: similarCard.location.lng,
+//     },
+//     {
+//       icon: icon,
+//     },
+//   );
+
+//   marker
+//     .addTo(map)
+//     .bindPopup(similarCard.offer.title);
+// });
+
+//Добавляем простые маркеры на карту
+similarCards.forEach((similarCard, index) => {
+  const marker = L.marker(
+    {
+      lat: similarCard.location.lat,
+      lng: similarCard.location.lng,
+    },
+    {
+      icon: icon,
+    },
+  );
+
+  marker
+    .addTo(map)
+    .bindPopup(renderCard(similarCards[index]));
 });
