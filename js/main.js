@@ -1,4 +1,5 @@
 import './form.js';
+import './map.js';
 import './generation.js';
 import './disabled.js';
 import {
