@@ -38,6 +38,7 @@ const renderFeatures = (featuresList) => {
   return featuresContainer;
 };
 
+// Наполняем шаблон данными
 const renderCard = (card) => {
 
   cardElement.querySelector('.popup__title').textContent = card.offer.title;
@@ -59,11 +60,12 @@ const renderCard = (card) => {
   cardElement.querySelector('.popup__features').innerHTML = '';
   cardElement.querySelector('.popup__features').appendChild(features);
 
+  return cardElement;
 };
 
 //Находим временное расположение объявления и отрисовываем шаблон там
-const similarListElement = document.querySelector('.map__canvas');
-similarListElement.appendChild(cardElement);
+//const similarListElement = document.querySelector('.map__canvas');
+//similarListElement.appendChild(cardElement);
 
 export {
   renderCard,

@@ -39,7 +39,7 @@ const LOCATION = {
     MAX: 139.80000,
   },
 };
-
+// На основе произвольных данных ссоздаем объявление
 const createAdvert = (avatarsNumber) => {
   const lat = getRandomNumber(LOCATION.X.MIN, LOCATION.X.MAX, DECIMAL_OF_COORDINATES);
   const lng = getRandomNumber(LOCATION.Y.MIN, LOCATION.Y.MAX, DECIMAL_OF_COORDINATES);
@@ -65,6 +65,7 @@ const createAdvert = (avatarsNumber) => {
   };
 };
 
+//Cоздаем любое количество объявлений и записываем их в массив
 const createAdverts = (advertsQuantity) => {
   const adverts = [];
   for (let i = 1; i <= advertsQuantity; i++) {

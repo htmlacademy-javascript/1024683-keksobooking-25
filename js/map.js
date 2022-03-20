@@ -67,7 +67,7 @@ const icon = L.icon({
 });
 
 // //Добавляем простые маркеры на карту
-// similarCards.forEach((similarCard) => {
+// similarCards.forEach((similarCard, index) => {
 //   const marker = L.marker(
 //     {
 //       lat: similarCard.location.lat,
@@ -80,11 +80,11 @@ const icon = L.icon({
 
 //   marker
 //     .addTo(map)
-//     .bindPopup(similarCard.offer.title);
+//     //Добавляем балун
+//     .bindPopup(renderCard(similarCards[index]));
 // });
 
-//Добавляем простые маркеры на карту
-similarCards.forEach((similarCard, index) => {
+const createMarker = (similarCard, index) => {
   const marker = L.marker(
     {
       lat: similarCard.location.lat,
@@ -97,5 +97,11 @@ similarCards.forEach((similarCard, index) => {
 
   marker
     .addTo(map)
+    //Добавляем балун
     .bindPopup(renderCard(similarCards[index]));
+};
+
+//Добавляем простые маркеры на карту
+similarCards.forEach((similarCard, index) => {
+  createMarker(similarCard, index);
 });
