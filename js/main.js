@@ -2,6 +2,7 @@ import './form.js';
 import './map.js';
 import './generation.js';
 import './disabled.js';
+import './nouislider.js';
 // import {
 //   createAdverts,
 //   ADVERTS_QUANTITY} from './data.js';
