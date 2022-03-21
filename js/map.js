@@ -56,7 +56,7 @@ mainPinMarker.addTo(map);
 
 // Узнаем координаты главного маркера
 mainPinMarker.on('moveend', (evt) => {
-  address.value = evt.target.getLatLng();
+  address.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
 // Cоздвем иконку простого маркера
@@ -84,7 +84,7 @@ const icon = L.icon({
 //     .bindPopup(renderCard(similarCards[index]));
 // });
 
-const createMarker = (similarCard, index) => {
+const createMarker = (similarCard) => {
   const marker = L.marker(
     {
       lat: similarCard.location.lat,
@@ -98,10 +98,10 @@ const createMarker = (similarCard, index) => {
   marker
     .addTo(map)
     //Добавляем балун
-    .bindPopup(renderCard(similarCards[index]));
+    .bindPopup(renderCard(similarCard));
 };
 
 //Добавляем простые маркеры на карту
-similarCards.forEach((similarCard, index) => {
-  createMarker(similarCard, index);
+similarCards.forEach((similarCard) => {
+  createMarker(similarCard);
 });
