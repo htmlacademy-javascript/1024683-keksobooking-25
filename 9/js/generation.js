@@ -3,9 +3,6 @@ const similarCardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-//Клонируем шаблон
-const cardElement = similarCardTemplate.cloneNode(true);
-
 const typeProperty ={
   flat: {price: 1000, name: 'Квартира'},
   bungalow: {price: 0, name: 'Бунгало'},
@@ -40,6 +37,8 @@ const renderFeatures = (featuresList) => {
 
 // Наполняем шаблон данными
 const renderCard = (card) => {
+  //Клонируем шаблон
+  const cardElement = similarCardTemplate.cloneNode(true);
 
   cardElement.querySelector('.popup__title').textContent = card.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = card.offer.address;

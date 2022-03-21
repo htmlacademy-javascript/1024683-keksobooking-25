@@ -27,3 +27,7 @@ noUiSlider.create(sliderElement, {
 sliderElement.noUiSlider.on('update', () => {
   valueElement.value = sliderElement.noUiSlider.get();
 });
+//Меняем значение range при изменении инпута.
+valueElement.addEventListener('input', (evt)=>{
+  sliderElement.noUiSlider.set(evt.target.value);
+});
