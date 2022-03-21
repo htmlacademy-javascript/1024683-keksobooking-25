@@ -80,7 +80,7 @@ selectTypeHousing.addEventListener('change', setPrice);
 //Cравниваем мин значение стоимости жилья и введеную стиомость
 const validatePrice = (value) => typeProperty[selectTypeHousing.value].price <= Number(value);
 //Выводим сообщение об ошибке
-const getPriceErrorMessage = ()=>`Минимальная цена для жилья: ${typeProperty[selectTypeHousing.value].price} руб`;
+const getPriceErrorMessage = ()=>`Мин цена: ${typeProperty[selectTypeHousing.value].price} руб`;
 
 //Валидируем инпут стоимости жилья
 pristine.addValidator(

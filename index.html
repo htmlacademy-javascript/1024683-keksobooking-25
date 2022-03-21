@@ -89,7 +89,7 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="title">Заголовок объявления</label>
-          <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио"  minlength="30" maxlength="100" required>
+          <input id="title" name="title" type="text" placeholder="Милая, уютная квартирка в центре Токио"  minlength="30"  data-pristine-minlength-message="Не менее 30 символов" maxlength="100" data-pristine-maxlength-message="Не более 100 символов" required data-pristine-required-message="Обязательное поле">
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес (координаты)</label>
@@ -108,7 +108,7 @@
 
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input class="ad-form__value" type="number" id="price" name="price"  placeholder="1000" max="100000" required>
+          <input class="ad-form__value" type="number" id="price" name="price"  placeholder="1000" max="100000" required data-pristine-required-message="Обязательное поле">
           <div class="ad-form__slider"></div>
 
         </fieldset>
