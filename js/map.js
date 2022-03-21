@@ -55,7 +55,7 @@ const mainPinMarker = L.marker(
 mainPinMarker.addTo(map);
 
 // Узнаем координаты главного маркера
-mainPinMarker.on('moveend', (evt) => {
+mainPinMarker.on('move', (evt) => {
   address.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
 });
 
