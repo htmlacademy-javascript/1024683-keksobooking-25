@@ -3,9 +3,6 @@ const similarCardTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
-//Клонируем шаблон
-const cardElement = similarCardTemplate.cloneNode(true);
-
 const typeProperty ={
   flat: {price: 1000, name: 'Квартира'},
   bungalow: {price: 0, name: 'Бунгало'},
@@ -38,7 +35,11 @@ const renderFeatures = (featuresList) => {
   return featuresContainer;
 };
 
+// Наполняем шаблон данными
 const renderCard = (card) => {
+  //Клонируем шаблон
+  const cardElement = similarCardTemplate.cloneNode(true);
+
   cardElement.querySelector('.popup__title').textContent = card.offer.title;
   cardElement.querySelector('.popup__text--address').textContent = card.offer.address;
   cardElement.querySelector('.popup__text--price').textContent = `${card.offer.price} ₽/ночь`;
@@ -57,11 +58,13 @@ const renderCard = (card) => {
   const features = renderFeatures(card.offer.features);
   cardElement.querySelector('.popup__features').innerHTML = '';
   cardElement.querySelector('.popup__features').appendChild(features);
+
+  return cardElement;
 };
 
 //Находим временное расположение объявления и отрисовываем шаблон там
-const similarListElement = document.querySelector('.map__canvas');
-similarListElement.appendChild(cardElement);
+//const similarListElement = document.querySelector('.map__canvas');
+//similarListElement.appendChild(cardElement);
 
 export {
   renderCard,

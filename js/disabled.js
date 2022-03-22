@@ -33,5 +33,6 @@ const includedForm = () => {
   }
 };
 
-
-includedForm();
+export {
+  includedForm
+};

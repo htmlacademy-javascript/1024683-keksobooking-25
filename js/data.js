@@ -5,6 +5,7 @@ import {
   getArrRandomLength,
   getСorrectAddress} from './util.js';
 
+//Записываем произвольные данные
 const DECIMAL_OF_COORDINATES = 5;
 const ADVERTS_QUANTITY = 10;
 const OFFER = {
@@ -38,7 +39,7 @@ const LOCATION = {
     MAX: 139.80000,
   },
 };
-
+// На основе произвольных данных ссоздаем объявление
 const createAdvert = (avatarsNumber) => {
   const lat = getRandomNumber(LOCATION.X.MIN, LOCATION.X.MAX, DECIMAL_OF_COORDINATES);
   const lng = getRandomNumber(LOCATION.Y.MIN, LOCATION.Y.MAX, DECIMAL_OF_COORDINATES);
@@ -64,6 +65,7 @@ const createAdvert = (avatarsNumber) => {
   };
 };
 
+//Cоздаем любое количество объявлений и записываем их в массив
 const createAdverts = (advertsQuantity) => {
   const adverts = [];
   for (let i = 1; i <= advertsQuantity; i++) {
