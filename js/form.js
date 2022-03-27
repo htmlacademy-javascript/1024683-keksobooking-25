@@ -43,11 +43,6 @@ pristine.addValidator(
   getAmountErrorMessage
 );
 
-form.addEventListener('submit', (evt) => {
-  const value = pristine.validate();
-  if(!value){evt.preventDefault();}
-});
-
 const selectTimeIn = document.querySelector('[name="timein"]');
 const selectTimeOut = document.querySelector('[name="timeout"]');
 
@@ -90,3 +85,39 @@ pristine.addValidator(
   1,
   true
 );
+
+///////////////////////////////////////////////////////////////////
+//успешная отправка
+const successPost = () => {
+  // Находим фрагмент с содержимым темплейта
+  const successPopup = document.querySelector('#success')
+    .content
+    .querySelector('.success');
+  //Находим расположение successTemplate и отрисовываем шаблон там
+  const body = document.querySelector('body');
+  body.appendChild(successPopup);
+};
+
+//Отправка формы
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const value = pristine.validate();
+    if(value){
+      const formData = new FormData(evt.target);
+      fetch(
+        'https://25.javascript.pages.academy/keksobooking',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      )
+      // в этот коллбек мы передаем БЛОКИРОВАНИЕ КНОПКИ ОТПРАВКИ и все что должно случиться при отправке формы
+        .then(() => onSuccess());
+    }
+  });
+};
+// Нужно добавить коллбек параметром
+setUserFormSubmit(successPost);
+
+

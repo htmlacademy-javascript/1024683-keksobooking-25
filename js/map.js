@@ -1,13 +1,13 @@
 import { includedForm } from './disabled.js';
 
-import {
-  createAdverts,
-  ADVERTS_QUANTITY} from './data.js';
+// import {
+//   createAdverts,
+//   ADVERTS_QUANTITY} from './data.js';
 import {
   renderCard} from './generation.js';
 
 //Массив с обьявлениями заводим в переменную
-const similarCards = createAdverts(ADVERTS_QUANTITY);
+//const similarCards = createAdverts(ADVERTS_QUANTITY);
 
 const address = document.querySelector('#address');
 const LAT = 35.68950;
@@ -66,24 +66,6 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
-// //Добавляем простые маркеры на карту
-// similarCards.forEach((similarCard, index) => {
-//   const marker = L.marker(
-//     {
-//       lat: similarCard.location.lat,
-//       lng: similarCard.location.lng,
-//     },
-//     {
-//       icon: icon,
-//     },
-//   );
-
-//   marker
-//     .addTo(map)
-//     //Добавляем балун
-//     .bindPopup(renderCard(similarCards[index]));
-// });
-
 const createMarker = (similarCard) => {
   const marker = L.marker(
     {
@@ -101,7 +83,10 @@ const createMarker = (similarCard) => {
     .bindPopup(renderCard(similarCard));
 };
 
-//Добавляем простые маркеры на карту
-similarCards.forEach((similarCard) => {
-  createMarker(similarCard);
-});
+
+// //Добавляем простые маркеры на карту
+// similarCards.forEach((similarCard) => {
+//   createMarker(similarCard);
+// });
+
+export {createMarker};
