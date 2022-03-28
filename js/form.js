@@ -87,15 +87,37 @@ pristine.addValidator(
 );
 
 ///////////////////////////////////////////////////////////////////
+const body = document.querySelector('body');
+// Находим фрагмент с содержимым темплейта
+const successPopup = document.querySelector('#success')
+  .content
+  .querySelector('.success');
+
+// Проверка клавиши esc
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+// Если нажали esc, то закрываем форму
+const onPopupEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    onclosePopup();
+  }
+};
+
+// Функция закрытия сообщения
+function onclosePopup () {
+  body.removeChild(successPopup);
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  successPopup.removeEventListener('click', onclosePopup);
+}
+
 //успешная отправка
 const successPost = () => {
-  // Находим фрагмент с содержимым темплейта
-  const successPopup = document.querySelector('#success')
-    .content
-    .querySelector('.success');
   //Находим расположение successTemplate и отрисовываем шаблон там
-  const body = document.querySelector('body');
   body.appendChild(successPopup);
+  // Добавляем обработчики на закрытие сообщения
+  document.addEventListener('keydown', onPopupEscKeydown);
+  successPopup.addEventListener('click', onclosePopup);
 };
 
 //Отправка формы
