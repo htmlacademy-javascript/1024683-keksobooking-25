@@ -87,6 +87,7 @@ pristine.addValidator(
 );
 
 ///////////////////////////////////////////////////////////////////
+
 const body = document.querySelector('body');
 // Находим фрагмент с содержимым темплейта
 const successPopup = document.querySelector('#success')
