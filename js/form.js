@@ -93,6 +93,12 @@ const successPopup = document.querySelector('#success')
   .content
   .querySelector('.success');
 
+// Находим фрагмент с содержимым темплейта
+const failPopup = document.querySelector('#error')
+  .content
+  .querySelector('.error');
+const closeButton = failPopup.querySelector('.error__button');
+
 // Проверка клавиши esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
@@ -100,16 +106,26 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    onclosePopup();
+    oncloseFailPopup();
+    oncloseSuccessPopup();
   }
 };
 
-// Функция закрытия сообщения
-function onclosePopup () {
+// Функция закрытия успешного сообщения
+function oncloseSuccessPopup () {
   body.removeChild(successPopup);
   document.removeEventListener('keydown', onPopupEscKeydown);
-  successPopup.removeEventListener('click', onclosePopup);
+  successPopup.removeEventListener('click', oncloseSuccessPopup);
 }
+
+// Функция закрытия неуспешного сообщения
+function oncloseFailPopup () {
+  body.removeChild(failPopup);
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  failPopup.removeEventListener('click', oncloseFailPopup);
+  closeButton.removeEventListener('click', oncloseFailPopup);
+}
+
 
 //успешная отправка
 const successPost = () => {
@@ -117,29 +133,48 @@ const successPost = () => {
   body.appendChild(successPopup);
   // Добавляем обработчики на закрытие сообщения
   document.addEventListener('keydown', onPopupEscKeydown);
-  successPopup.addEventListener('click', onclosePopup);
+  successPopup.addEventListener('click', oncloseSuccessPopup);
+};
+
+
+//Неуспешная отправка
+const failPost = () => {
+  //Находим расположение successTemplate и отрисовываем шаблон там
+  body.appendChild(failPopup);
+  // Добавляем обработчики на закрытие сообщения
+  document.addEventListener('keydown', onPopupEscKeydown);
+  failPopup.addEventListener('click', oncloseFailPopup);
+  closeButton.addEventListener('click', oncloseFailPopup);
 };
 
 //Отправка формы
-const setUserFormSubmit = (onSuccess) => {
+const setUserFormSubmit = (onSuccess, onFail) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const value = pristine.validate();
     if(value){
       const formData = new FormData(evt.target);
       fetch(
-        'https://25.javascript.pages.academy/keksobooking',
+        'https://25.javascript.pages.academy/keksobookin',
         {
           method: 'POST',
           body: formData,
         },
       )
       // в этот коллбек мы передаем БЛОКИРОВАНИЕ КНОПКИ ОТПРАВКИ и все что должно случиться при отправке формы
-        .then(() => onSuccess());
+        .then((response) => {
+          if (response.ok) {
+            onSuccess();
+          } else {
+            onFail();
+          }
+        })
+        .catch(() => {
+          onFail();
+        });
     }
   });
 };
 // Нужно добавить коллбек параметром
-setUserFormSubmit(successPost);
-
+setUserFormSubmit(successPost, failPost);
 
