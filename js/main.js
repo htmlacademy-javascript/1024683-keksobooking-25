@@ -4,12 +4,12 @@ import './map.js';
 import './generation.js';
 import './disabled.js';
 import './nouislider.js';
-// import {
-//   createAdverts,
-//   ADVERTS_QUANTITY} from './data.js';
-// import {
-//   renderCard} from './generation.js';
+import {
+  getData} from './api.js';
+import {
+  createMarker} from './map.js';
 
-// const similarCards = createAdverts(ADVERTS_QUANTITY);
-// console.log(similarCards);
-// renderCard(similarCards[0]);
+
+getData((cards)=>{
+  cards.forEach((card)=>createMarker(card));
+});

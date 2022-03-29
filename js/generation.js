@@ -11,29 +11,29 @@ const typeProperty ={
   hotel: {price: 3000, name: 'Отель'}
 };
 
-// const renderPhotos = (photosList) => {
-//   const photosContainer = document.createDocumentFragment();
-//   photosList.forEach((photo) => {
-//     const photoElement = document.createElement('img');
-//     photoElement.src = photo;
-//     photoElement.classList.add('popup__photo');
-//     photoElement.width = 45;
-//     photoElement.height = 40;
-//     photoElement.alt = 'Фотография жилья';
-//     photosContainer.appendChild(photoElement);
-//   });
-//   return photosContainer;
-// };
+const renderPhotos = (photosList) => {
+  const photosContainer = document.createDocumentFragment();
+  photosList.forEach((photo) => {
+    const photoElement = document.createElement('img');
+    photoElement.src = photo;
+    photoElement.classList.add('popup__photo');
+    photoElement.width = 45;
+    photoElement.height = 40;
+    photoElement.alt = 'Фотография жилья';
+    photosContainer.appendChild(photoElement);
+  });
+  return photosContainer;
+};
 
-// const renderFeatures = (featuresList) => {
-//   const featuresContainer = document.createDocumentFragment();
-//   featuresList.forEach((feature) => {
-//     const featureElement = document.createElement('li');
-//     featureElement.classList.add('popup__feature', `popup__feature--${feature}`);
-//     featuresContainer.appendChild(featureElement);
-//   });
-//   return featuresContainer;
-// };
+const renderFeatures = (featuresList) => {
+  const featuresContainer = document.createDocumentFragment();
+  featuresList.forEach((feature) => {
+    const featureElement = document.createElement('li');
+    featureElement.classList.add('popup__feature', `popup__feature--${feature}`);
+    featuresContainer.appendChild(featureElement);
+  });
+  return featuresContainer;
+};
 
 // Наполняем шаблон данными
 const renderCard = (card) => {
@@ -51,13 +51,17 @@ const renderCard = (card) => {
   cardElement.querySelector('.popup__description').textContent = card.offer.description;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
   //
-  // const photos = renderPhotos(card.offer.photos);
-  // cardElement.querySelector('.popup__photos').innerHTML = '';
-  // cardElement.querySelector('.popup__photos').appendChild(photos);
-  //
-  // const features = renderFeatures(card.offer.features);
-  // cardElement.querySelector('.popup__features').innerHTML = '';
-  // cardElement.querySelector('.popup__features').appendChild(features);
+  cardElement.querySelector('.popup__photos').innerHTML = '';
+  if  (card.offer.photos) {
+    const photos = renderPhotos(card.offer.photos);
+    cardElement.querySelector('.popup__photos').appendChild(photos);
+  }
+
+  cardElement.querySelector('.popup__features').innerHTML = '';
+  if(card.offer.features){
+    const features = renderFeatures(card.offer.features);
+    cardElement.querySelector('.popup__features').appendChild(features);
+  }
 
   return cardElement;
 };

@@ -1,4 +1,5 @@
 import {typeProperty} from './generation.js';
+import {postData} from './api.js';
 
 const form = document.querySelector('.ad-form');
 const pristine = new Pristine(form, {
@@ -86,8 +87,6 @@ pristine.addValidator(
   true
 );
 
-///////////////////////////////////////////////////////////////////
-
 const body = document.querySelector('body');
 // Находим фрагмент с содержимым темплейта
 const successPopup = document.querySelector('#success')
@@ -135,6 +134,7 @@ const successPost = () => {
   // Добавляем обработчики на закрытие сообщения
   document.addEventListener('keydown', onPopupEscKeydown);
   successPopup.addEventListener('click', oncloseSuccessPopup);
+  form.reset();
 };
 
 
@@ -149,33 +149,13 @@ const failPost = () => {
 };
 
 //Отправка формы
-const setUserFormSubmit = (onSuccess, onFail) => {
-  form.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    const value = pristine.validate();
-    if(value){
-      const formData = new FormData(evt.target);
-      fetch(
-        'https://25.javascript.pages.academy/keksobookin',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      )
-      // в этот коллбек мы передаем БЛОКИРОВАНИЕ КНОПКИ ОТПРАВКИ и все что должно случиться при отправке формы
-        .then((response) => {
-          if (response.ok) {
-            onSuccess();
-          } else {
-            onFail();
-          }
-        })
-        .catch(() => {
-          onFail();
-        });
-    }
-  });
-};
-// Нужно добавить коллбек параметром
-setUserFormSubmit(successPost, failPost);
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const value = pristine.validate();
+  if(value){
+    const formData = new FormData(evt.target);
+    postData(successPost, failPost, formData);
+  }
+});
+
 
