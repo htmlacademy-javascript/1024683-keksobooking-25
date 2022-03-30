@@ -76,4 +76,4 @@ const createMarker = (similarCard) => {
     .bindPopup(renderCard(similarCard));
 };
 
-export {createMarker};
+export {createMarker, LAT, LNG, map, mainPinMarker};
