@@ -1,13 +1,6 @@
 import { includedForm } from './disabled.js';
-
-// import {
-//   createAdverts,
-//   ADVERTS_QUANTITY} from './data.js';
 import {
   renderCard} from './generation.js';
-
-//Массив с обьявлениями заводим в переменную
-//const similarCards = createAdverts(ADVERTS_QUANTITY);
 
 const address = document.querySelector('#address');
 const LAT = 35.68950;
@@ -82,11 +75,5 @@ const createMarker = (similarCard) => {
     //Добавляем балун
     .bindPopup(renderCard(similarCard));
 };
-
-
-// //Добавляем простые маркеры на карту
-// similarCards.forEach((similarCard) => {
-//   createMarker(similarCard);
-// });
 
 export {createMarker};
