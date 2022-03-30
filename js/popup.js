@@ -1,8 +1,4 @@
-import {LAT, LNG, map, mainPinMarker} from './map.js';
-
-const form = document.querySelector('.ad-form');
-const sliderElement = document.querySelector('.ad-form__slider');
-const address = document.querySelector('#address');
+import {resetForm} from './form.js';
 
 const body = document.querySelector('body');
 // Находим фрагмент с содержимым темплейта
@@ -70,17 +66,7 @@ const successPost = () => {
   // Добавляем обработчики на закрытие сообщения
   document.addEventListener('keydown', onPopupEscKeydown);
   successPopup.addEventListener('click', oncloseSuccessPopup);
-  form.reset();
-  sliderElement.noUiSlider.set(0);
-  address.value = `${LAT}, ${LNG}`;
-  map.setView({
-    lat: LAT,
-    lng: LNG
-  }, 10);
-  mainPinMarker.setLatLng({
-    lat: 35.681700,
-    lng: 139.753882,
-  });
+  resetForm();
 };
 
 //Неуспешная отправка

@@ -104,7 +104,8 @@ const sliderElement = document.querySelector('.ad-form__slider');
 const address = document.querySelector('#address');
 
 //Функция сброса данных для обработчика собитий кнопки "Очистить"
-const reset = () => {
+const resetForm = () => {
+  form.reset();
   sliderElement.noUiSlider.set(0);
   address.value = `${LAT}, ${LNG}`;
   map.setView({
@@ -120,5 +121,7 @@ const reset = () => {
 //Обновляем данные формы при нажатии на кнопку "Очистить"
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  reset();
+  resetForm();
 });
+
+export {resetForm};
