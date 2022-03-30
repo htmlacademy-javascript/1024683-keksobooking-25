@@ -66,10 +66,6 @@ const renderCard = (card) => {
   return cardElement;
 };
 
-//Находим временное расположение объявления и отрисовываем шаблон там
-//const similarListElement = document.querySelector('.map__canvas');
-//similarListElement.appendChild(cardElement);
-
 export {
   renderCard,
   typeProperty
