@@ -1,4 +1,7 @@
 import {typeProperty} from './generation.js';
+import {postData} from './api.js';
+import {successPost, failPost} from './popup.js';
+import {LAT, LNG, map, mainPinMarker} from './map.js';
 
 const form = document.querySelector('.ad-form');
 const pristine = new Pristine(form, {
@@ -23,7 +26,6 @@ function validateAmount () {
   return roomCapacityMap[roomNumberSelect.value].includes(capacitySelect.value);
 }
 
-
 function getAmountErrorMessage () {
   let message = 'Количество гостей не может превышать количество комнат';
   if (roomNumberSelect.value === '100'){
@@ -42,11 +44,6 @@ pristine.addValidator(
   validateAmount,
   getAmountErrorMessage
 );
-
-form.addEventListener('submit', (evt) => {
-  const value = pristine.validate();
-  if(!value){evt.preventDefault();}
-});
 
 const selectTimeIn = document.querySelector('[name="timein"]');
 const selectTimeOut = document.querySelector('[name="timeout"]');
@@ -90,3 +87,41 @@ pristine.addValidator(
   1,
   true
 );
+
+//Отправка формы
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const value = pristine.validate();
+  if(value){
+    const formData = new FormData(evt.target);
+    postData(successPost, failPost, formData);
+  }
+});
+
+
+const resetButton = document.querySelector('.ad-form__reset');
+const sliderElement = document.querySelector('.ad-form__slider');
+const address = document.querySelector('#address');
+
+//Функция сброса данных для обработчика собитий кнопки "Очистить"
+const resetForm = () => {
+  form.reset();
+  sliderElement.noUiSlider.set(0);
+  address.value = `${LAT}, ${LNG}`;
+  map.setView({
+    lat: LAT,
+    lng: LNG
+  }, 10);
+  mainPinMarker.setLatLng({
+    lat: 35.681700,
+    lng: 139.753882,
+  });
+};
+
+//Обновляем данные формы при нажатии на кнопку "Очистить"
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetForm();
+});
+
+export {resetForm};
