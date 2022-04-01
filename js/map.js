@@ -59,6 +59,8 @@ const icon = L.icon({
   iconAnchor: [20, 40],
 });
 
+const markerGroup = L.layerGroup().addTo(map);
+
 const createMarker = (similarCard) => {
   const marker = L.marker(
     {
@@ -71,9 +73,9 @@ const createMarker = (similarCard) => {
   );
 
   marker
-    .addTo(map)
+    .addTo(markerGroup)
     //Добавляем балун
     .bindPopup(renderCard(similarCard));
 };
 
-export {createMarker, LAT, LNG, map, mainPinMarker};
+export {createMarker, LAT, LNG, map, mainPinMarker, markerGroup};

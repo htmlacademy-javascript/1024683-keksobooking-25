@@ -15,7 +15,7 @@ const getData = (onSuccess) => {
       throw new Error();
     })
     .then((cards) => {
-    //Добавляем простые маркеры ИЗ СЕРВЕРА на карту
+      //Добавляем простые маркеры ИЗ СЕРВЕРА на карту
       onSuccess(cards);
     })
     .catch(() => {
