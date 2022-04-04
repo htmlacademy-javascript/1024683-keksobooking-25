@@ -1,6 +1,6 @@
 import {errorDownloadMessage} from './popup.js';
 
-let ABC = [];
+let AllCards = [];
 
 const getData = (onSuccess) => {
 //Получение данных
@@ -19,7 +19,7 @@ const getData = (onSuccess) => {
     .then((cards) => {
       //Добавляем простые маркеры ИЗ СЕРВЕРА на карту
       onSuccess(cards);
-      ABC = cards;
+      AllCards = cards;
     })
     .catch(() => {
       errorDownloadMessage();
@@ -50,4 +50,4 @@ const postData = (onSuccess, onFail, formData) => {
 export {
   postData,
   getData,
-  ABC};
+  AllCards};
