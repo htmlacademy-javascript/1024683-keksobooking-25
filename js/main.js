@@ -1,3 +1,4 @@
+import './photo.js';
 import './filter.js';
 import './api.js';
 import './form.js';
