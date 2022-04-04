@@ -21,7 +21,8 @@ PlacesChooser.addEventListener('change', () => {
 
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if(matches) {
-    PlacesPreview.insertAdjacentHTML('beforeend', '<img src="URL.createObjectURL(file)" alt="Тип жилья" width="100%" height="100%" class="ad-form__photo--img">');
+    PlacesPreview.insertAdjacentHTML('beforeend',
+      '<img src="URL.createObjectURL(file)" alt="Тип жилья" width="100%" height="100%" class="ad-form__photo--img">');
     document.querySelector('.ad-form__photo--img').src = URL.createObjectURL(file);
   }
 });
