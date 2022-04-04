@@ -1,11 +1,12 @@
 import {createMarker} from './map.js';
 import {markerGroup} from './map.js';
-import {AllCards} from './api.js';
+import {allCards} from './api.js';
 import {debounce} from './util.js';
 
+const COUNT_OF_CARDS = 10;
+const ANY_QUANTITY = 'any';
 
 const mapFilter = document.querySelector('.map__filters');
-const COUNT_OF_CARDS = 10;
 
 const PRICE_RANGES = {
   any: {
@@ -26,12 +27,11 @@ const PRICE_RANGES = {
   },
 };
 
-
 const getSelectCheckboxes = () => Array.from(document.querySelectorAll('input[name="features"]:checked')).map((cb) => cb.value);
 
 const checkArrayInclude = (first, second) => {
   for (let i = 0; i < second.length; i++){
-    if (first.indexOf(second[i]) === -1) {
+    if (!first.includes(second[i])){
       return false;
     }
   }
@@ -40,22 +40,22 @@ const checkArrayInclude = (first, second) => {
 
 const checkType = (card) => {
   const typePropertyValue = document.querySelector('#housing-type').value;
-  if (card.offer.type === typePropertyValue || typePropertyValue === 'any') {return card;}
+  return card.offer.type === typePropertyValue || typePropertyValue === ANY_QUANTITY;
 };
 
 const checkPrice = (card) => {
   const price = document.querySelector('#housing-price').value;
-  if (card.offer.price <= PRICE_RANGES[price].maxprice && card.offer.price >= PRICE_RANGES[price].minprice) {return card;}
+  return card.offer.price <= PRICE_RANGES[price].maxprice && card.offer.price >= PRICE_RANGES[price].minprice;
 };
 
 const checkRooms = (card) => {
   const rooms = document.querySelector('#housing-rooms').value;
-  if (card.offer.rooms === Number(rooms) || rooms === 'any' ) {return card;}
+  return card.offer.rooms === Number(rooms) || rooms === ANY_QUANTITY;
 };
 
 const checkGuests = (card) => {
   const guests = document.querySelector('#housing-guests').value;
-  if (card.offer.guests === Number(guests) || guests === 'any') {return card;}
+  return card.offer.guests === Number(guests) || guests === ANY_QUANTITY;
 };
 
 const checkFeatures = (card) => {
@@ -71,10 +71,9 @@ const checkFeatures = (card) => {
 
 const filtercard = () => {
   markerGroup.clearLayers();
-  AllCards.filter((card) => checkType(card) && checkRooms(card) && checkGuests(card) && checkPrice(card) && checkFeatures(card))
+  allCards.filter((card) => checkType(card) && checkRooms(card) && checkGuests(card) && checkPrice(card) && checkFeatures(card))
     .slice(0, COUNT_OF_CARDS)
     .forEach((card)=>createMarker(card));
 };
-
 
 mapFilter.addEventListener('change', debounce(filtercard));
