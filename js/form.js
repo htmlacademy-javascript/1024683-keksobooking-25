@@ -20,6 +20,9 @@ const roomCapacityMap = {
   '3':['1', '2', '3'],
   '100':['0'],
 };
+const avatarChooser = document.querySelector('.ad-form-header__preview img');
+const placesPreview = document.querySelector('.ad-form__photo');
+const photoMuffin = 'img/muffin-grey.svg';
 
 function validateAmount () {
   //const capacitySelectValue = String(capacitySelect.value);
@@ -116,6 +119,8 @@ const resetForm = () => {
     lat: 35.681700,
     lng: 139.753882,
   });
+  avatarChooser.src = photoMuffin;
+  placesPreview.innerHTML = '';
 };
 
 //Обновляем данные формы при нажатии на кнопку "Очистить"
