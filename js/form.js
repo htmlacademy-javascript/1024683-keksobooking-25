@@ -1,7 +1,7 @@
 import {typeProperty} from './generation.js';
 import {postData} from './api.js';
 import {successPost, failPost} from './popup.js';
-import {LAT, LNG, map, mainPinMarker} from './map.js';
+import {LAT, LNG, map, mainPinMarker, MAIN_PIN_MARKER_LAT, MAIN_PIN_MARKER_LNG} from './map.js';
 
 const form = document.querySelector('.ad-form');
 const pristine = new Pristine(form, {
@@ -23,6 +23,16 @@ const roomCapacityMap = {
 const avatarChooser = document.querySelector('.ad-form-header__preview img');
 const placesPreview = document.querySelector('.ad-form__photo');
 const photoMuffin = 'img/muffin-grey.svg';
+
+const selectTimeIn = document.querySelector('[name="timein"]');
+const selectTimeOut = document.querySelector('[name="timeout"]');
+
+const selectTypeHousing = document.querySelector('[name="type"]');
+const inputPrice = document.querySelector('[name="price"]');
+
+const resetButton = document.querySelector('.ad-form__reset');
+const sliderElement = document.querySelector('.ad-form__slider');
+const address = document.querySelector('#address');
 
 function validateAmount () {
   //const capacitySelectValue = String(capacitySelect.value);
@@ -48,9 +58,6 @@ pristine.addValidator(
   getAmountErrorMessage
 );
 
-const selectTimeIn = document.querySelector('[name="timein"]');
-const selectTimeOut = document.querySelector('[name="timeout"]');
-
 //при изменении времени выезда, меняем время въезда
 const setTimeIn = (evt) => {
   selectTimeIn.value = evt.target.value;
@@ -64,14 +71,9 @@ const setTimeOut = (evt) => {
 selectTimeOut.addEventListener('change', setTimeIn);
 selectTimeIn.addEventListener('change', setTimeOut);
 
-
-const selectTypeHousing = document.querySelector('[name="type"]');
-const inputPrice = document.querySelector('[name="price"]');
-
 //при изменении типа жилья, меняем placeholder и min в инпуте стоимости жилья
 const setPrice = (evt) => {
   inputPrice.placeholder = typeProperty[evt.target.value].price;
-  //inputPrice.min = typeProperty[evt.target.value].price;
 };
 
 //Вешаем обработчик события change на изменение типа жилья
@@ -101,23 +103,18 @@ form.addEventListener('submit', (evt) => {
   }
 });
 
-
-const resetButton = document.querySelector('.ad-form__reset');
-const sliderElement = document.querySelector('.ad-form__slider');
-const address = document.querySelector('#address');
-
 //Функция сброса данных для обработчика собитий кнопки "Очистить"
 const resetForm = () => {
   form.reset();
   sliderElement.noUiSlider.set(0);
-  address.value = `${LAT}, ${LNG}`;
+  address.value = `${MAIN_PIN_MARKER_LAT}, ${MAIN_PIN_MARKER_LNG}`;
   map.setView({
     lat: LAT,
     lng: LNG
   }, 10);
   mainPinMarker.setLatLng({
-    lat: 35.681700,
-    lng: 139.753882,
+    lat: MAIN_PIN_MARKER_LAT,
+    lng: MAIN_PIN_MARKER_LNG,
   });
   avatarChooser.src = photoMuffin;
   placesPreview.innerHTML = '';

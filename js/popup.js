@@ -20,12 +20,20 @@ const errorPopup = document.querySelector('#errorData')
 // Проверка клавиши esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-// Если нажали esc, то закрываем Попап
-const onPopupEscKeydown = (evt) => {
+
+// Если нажали esc, то закрываем Попап успешной отправки
+const onSuccessPopupEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    oncloseSuccessPopup();
+  }
+};
+
+// Если нажали esc, то закрываем Попап неуспешной отправки
+const onFailPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     oncloseFailPopup();
-    oncloseSuccessPopup();
   }
 };
 
@@ -40,14 +48,14 @@ const onErrorPopupEscKeydown = (evt) => {
 // Функция закрытия успешного сообщения
 function oncloseSuccessPopup () {
   body.removeChild(successPopup);
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('keydown', onSuccessPopupEscKeydown);
   successPopup.removeEventListener('click', oncloseSuccessPopup);
 }
 
 // Функция закрытия неуспешного сообщения
 function oncloseFailPopup () {
   body.removeChild(failPopup);
-  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('keydown', onFailPopupEscKeydown);
   failPopup.removeEventListener('click', oncloseFailPopup);
   closeButton.removeEventListener('click', oncloseFailPopup);
 }
@@ -64,7 +72,7 @@ const successPost = () => {
   //Находим расположение successTemplate и отрисовываем шаблон там
   body.appendChild(successPopup);
   // Добавляем обработчики на закрытие сообщения
-  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('keydown', onSuccessPopupEscKeydown);
   successPopup.addEventListener('click', oncloseSuccessPopup);
   resetForm();
 };
@@ -74,7 +82,7 @@ const failPost = () => {
   //Находим расположение successTemplate и отрисовываем шаблон там
   body.appendChild(failPopup);
   // Добавляем обработчики на закрытие сообщения
-  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('keydown', onFailPopupEscKeydown);
   failPopup.addEventListener('click', oncloseFailPopup);
   closeButton.addEventListener('click', oncloseFailPopup);
 };

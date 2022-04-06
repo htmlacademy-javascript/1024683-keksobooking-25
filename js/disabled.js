@@ -1,4 +1,4 @@
-const disabledForm = () => {
+const disableForm = () => {
   const adForm = document.querySelector('.ad-form');
   adForm.classList.add('ad-form--disabled');
   const adFormAll = adForm.children;
@@ -14,10 +14,10 @@ const disabledForm = () => {
   }
 };
 
-disabledForm();
+disableForm();
 
 
-const includedForm = () => {
+const enableForm = () => {
   const adForm = document.querySelector('.ad-form');
   adForm.classList.remove('ad-form--disabled');
   const adFormAll = adForm.children;
@@ -34,5 +34,5 @@ const includedForm = () => {
 };
 
 export {
-  includedForm
+  enableForm
 };

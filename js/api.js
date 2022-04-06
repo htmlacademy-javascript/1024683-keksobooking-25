@@ -1,7 +1,5 @@
 import {errorDownloadMessage} from './popup.js';
 
-let allCards = [];
-
 const getData = (onSuccess) => {
 //Получение данных
   fetch('https://25.javascript.pages.academy/keksobooking/data',
@@ -19,7 +17,6 @@ const getData = (onSuccess) => {
     .then((cards) => {
       //Добавляем простые маркеры ИЗ СЕРВЕРА на карту
       onSuccess(cards);
-      allCards = cards;
     })
     .catch(() => {
       errorDownloadMessage();
@@ -49,5 +46,5 @@ const postData = (onSuccess, onFail, formData) => {
 
 export {
   postData,
-  getData,
-  allCards};
+  getData};
+
