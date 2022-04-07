@@ -68,13 +68,14 @@ const checkFeatures = (card) => {
 const filterCard = (allCards) => {
   markerGroup.clearLayers();
 
-  const FilteredCards = [];
-  for (let i = 0; i <= allCards.length; i++) {
+  const filteredCards = [];
+  for (let i = 0; i < allCards.length; i++) {
     if(checkType(allCards[i]) && checkRooms(allCards[i]) && checkGuests(allCards[i])
     && checkPrice(allCards[i]) && checkFeatures(allCards[i])) {
-      if(FilteredCards.length >= COUNT_OF_CARDS){ break;}
-      FilteredCards.push(allCards[i]);}
+      if(filteredCards.length >= COUNT_OF_CARDS){ break;}
+      //console.log(allCards[i]);
+      filteredCards.push(allCards[i]);}
   }
-  FilteredCards.forEach((card)=>createMarker(card));
+  filteredCards.forEach((card)=>createMarker(card));
 };
 export {filterCard};
