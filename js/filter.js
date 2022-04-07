@@ -75,15 +75,6 @@ const filterCard = (allCards) => {
       if(FilteredCards.length >= COUNT_OF_CARDS){ break;}
       FilteredCards.push(allCards[i]);}
   }
-  console.log(FilteredCards);
   FilteredCards.forEach((card)=>createMarker(card));
 };
 export {filterCard};
-
-
-// for (let i = 0; i <= Math.min(allCards.length, COUNT_OF_CARDS); i++) {
-//   if(checkType(allCards[i]) && checkRooms(allCards[i]) && checkGuests(allCards[i]) && checkPrice(allCards[i]) && checkFeatures(allCards[i])) {
-//     createMarker(allCards[i]);}
-// };
-
-// console.log(FilteredCards);
