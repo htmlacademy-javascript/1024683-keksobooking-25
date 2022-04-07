@@ -1,17 +1,19 @@
-import { includedForm } from './disabled.js';
+import { enableForm } from './disabled.js';
 import {
   renderCard} from './generation.js';
 
 const address = document.querySelector('#address');
 const LAT = 35.68950;
 const LNG = 139.69171;
+const MAIN_PIN_MARKER_LAT = 35.681700;
+const MAIN_PIN_MARKER_LNG = 139.753882;
 
-address.value = `${LAT}, ${LNG}`;
+address.value = `${MAIN_PIN_MARKER_LAT.toFixed(5)}, ${MAIN_PIN_MARKER_LNG.toFixed(5)}`;
 
 //Cоздаем карту
 const map = L.map('map-canvas')
   .on('load', () => {
-    includedForm();
+    enableForm();
   })
   .setView({
     lat: LAT,
@@ -36,8 +38,8 @@ const mainPinIcon = L.icon({
 //Cоздаем маркер
 const mainPinMarker = L.marker(
   {
-    lat: 35.681700,
-    lng: 139.753882,
+    lat: MAIN_PIN_MARKER_LAT,
+    lng: MAIN_PIN_MARKER_LNG,
   },
   {
     draggable: true,
@@ -78,4 +80,4 @@ const createMarker = (similarCard) => {
     .bindPopup(renderCard(similarCard));
 };
 
-export {createMarker, LAT, LNG, map, mainPinMarker, markerGroup};
+export {createMarker, LAT, LNG, map, mainPinMarker, markerGroup, MAIN_PIN_MARKER_LAT, MAIN_PIN_MARKER_LNG};

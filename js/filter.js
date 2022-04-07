@@ -1,12 +1,8 @@
 import {createMarker} from './map.js';
 import {markerGroup} from './map.js';
-import {allCards} from './api.js';
-import {debounce} from './util.js';
 
 const COUNT_OF_CARDS = 10;
 const ANY_QUANTITY = 'any';
-
-const mapFilter = document.querySelector('.map__filters');
 
 const PRICE_RANGES = {
   any: {
@@ -69,11 +65,16 @@ const checkFeatures = (card) => {
   return checkArrayInclude(card.offer.features, selectFeatures);
 };
 
-const filtercard = () => {
+const filterCard = (allCards) => {
   markerGroup.clearLayers();
-  allCards.filter((card) => checkType(card) && checkRooms(card) && checkGuests(card) && checkPrice(card) && checkFeatures(card))
-    .slice(0, COUNT_OF_CARDS)
-    .forEach((card)=>createMarker(card));
-};
 
-mapFilter.addEventListener('change', debounce(filtercard));
+  const FilteredCards = [];
+  for (let i = 0; i <= allCards.length; i++) {
+    if(checkType(allCards[i]) && checkRooms(allCards[i]) && checkGuests(allCards[i])
+    && checkPrice(allCards[i]) && checkFeatures(allCards[i])) {
+      if(FilteredCards.length >= COUNT_OF_CARDS){ break;}
+      FilteredCards.push(allCards[i]);}
+  }
+  FilteredCards.forEach((card)=>createMarker(card));
+};
+export {filterCard};
