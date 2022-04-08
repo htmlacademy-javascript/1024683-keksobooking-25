@@ -1,6 +1,10 @@
 import { enableForm } from './disabled.js';
-import {
-  renderCard} from './generation.js';
+import {renderCard} from './generation.js';
+import {getData} from './api.js';
+import {debounce} from './util.js';
+import {filterCard} from './filter.js';
+
+const mapFilter = document.querySelector('.map__filters');
 
 const address = document.querySelector('#address');
 const LAT = 35.68950;
@@ -12,9 +16,8 @@ address.value = `${MAIN_PIN_MARKER_LAT.toFixed(5)}, ${MAIN_PIN_MARKER_LNG.toFixe
 
 //Cоздаем карту
 const map = L.map('map-canvas')
-  .on('load', () => {
-    enableForm();
-  })
+//Вешаем обработчик на карту
+  .on('load', onMapLoad)
   .setView({
     lat: LAT,
     lng: LNG
@@ -79,5 +82,17 @@ const createMarker = (similarCard) => {
     //Добавляем балун
     .bindPopup(renderCard(similarCard));
 };
+
+function onMapLoad () {
+  getData((cards)=>{
+    cards.slice()
+      .slice(0, 10)
+      .forEach((card)=> createMarker(card) );
+    mapFilter.addEventListener('change', debounce(()=>{
+      filterCard(cards);
+    }));
+    enableForm();
+  });
+}
 
 export {createMarker, LAT, LNG, map, mainPinMarker, markerGroup, MAIN_PIN_MARKER_LAT, MAIN_PIN_MARKER_LNG};

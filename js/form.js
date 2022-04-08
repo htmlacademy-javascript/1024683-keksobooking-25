@@ -34,6 +34,8 @@ const resetButton = document.querySelector('.ad-form__reset');
 const sliderElement = document.querySelector('.ad-form__slider');
 const address = document.querySelector('#address');
 
+const mapFilter = document.querySelector('.map__filters');
+
 function validateAmount () {
   //const capacitySelectValue = String(capacitySelect.value);
   return roomCapacityMap[roomNumberSelect.value].includes(capacitySelect.value);
@@ -59,25 +61,25 @@ pristine.addValidator(
 );
 
 //при изменении времени выезда, меняем время въезда
-const setTimeIn = (evt) => {
+const onTimeInChange = (evt) => {
   selectTimeIn.value = evt.target.value;
 };
 //при изменении времени въезда, меняем время выезда
-const setTimeOut = (evt) => {
+const onTimeOutChange = (evt) => {
   selectTimeOut.value = evt.target.value;
 };
 
 //Вешаем обработчик события change на изменение времени въезда и выезда
-selectTimeOut.addEventListener('change', setTimeIn);
-selectTimeIn.addEventListener('change', setTimeOut);
+selectTimeOut.addEventListener('change', onTimeInChange);
+selectTimeIn.addEventListener('change', onTimeOutChange);
 
 //при изменении типа жилья, меняем placeholder и min в инпуте стоимости жилья
-const setPrice = (evt) => {
+const onPriceChange = (evt) => {
   inputPrice.placeholder = typeProperty[evt.target.value].price;
 };
 
 //Вешаем обработчик события change на изменение типа жилья
-selectTypeHousing.addEventListener('change', setPrice);
+selectTypeHousing.addEventListener('change', onPriceChange);
 
 //Cравниваем мин значение стоимости жилья и введеную стиомость
 const validatePrice = (value) => typeProperty[selectTypeHousing.value].price <= Number(value);
@@ -106,6 +108,8 @@ form.addEventListener('submit', (evt) => {
 //Функция сброса данных для обработчика собитий кнопки "Очистить"
 const resetForm = () => {
   form.reset();
+  mapFilter.reset();
+  map.closePopup();
   sliderElement.noUiSlider.set(0);
   address.value = `${MAIN_PIN_MARKER_LAT}, ${MAIN_PIN_MARKER_LNG}`;
   map.setView({
