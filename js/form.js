@@ -1,7 +1,7 @@
 import {typeProperty} from './generation.js';
 import {postData} from './api.js';
 import {successPost, failPost} from './popup.js';
-import {LAT, LNG, map, mainPinMarker, MAIN_PIN_MARKER_LAT, MAIN_PIN_MARKER_LNG} from './map.js';
+import {LAT, LNG, map, mainPinMarker, MAIN_PIN_MARKER_LAT, MAIN_PIN_MARKER_LNG, markerGroup, onMapLoad} from './map.js';
 
 const form = document.querySelector('.ad-form');
 const pristine = new Pristine(form, {
@@ -120,6 +120,10 @@ const resetForm = () => {
     lat: MAIN_PIN_MARKER_LAT,
     lng: MAIN_PIN_MARKER_LNG,
   });
+  // Удаляем оставшиеся метки
+  markerGroup.clearLayers();
+  // Загружаем новые метки
+  onMapLoad();
   avatarChooser.src = photoMuffin;
   placesPreview.innerHTML = '';
 };

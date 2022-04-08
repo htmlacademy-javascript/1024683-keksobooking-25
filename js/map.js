@@ -95,4 +95,4 @@ function onMapLoad () {
   });
 }
 
-export {createMarker, LAT, LNG, map, mainPinMarker, markerGroup, MAIN_PIN_MARKER_LAT, MAIN_PIN_MARKER_LNG};
+export {createMarker, LAT, LNG, map, mainPinMarker, markerGroup, MAIN_PIN_MARKER_LAT, MAIN_PIN_MARKER_LNG, onMapLoad};
